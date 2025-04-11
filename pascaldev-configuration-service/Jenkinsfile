@@ -19,14 +19,14 @@ pipeline {
     stages {
         stage('Clone'){
              steps {
-			   dir('bcephal-configuration-repository'){
+			   dir('pascaldev-configuration-repository'){
 					
 					checkout([$class: 'GitSCM', branches: [[name: '*/master']],
 					doGenerateSubmoduleConfigurations: false,
 					extensions: [
 					[$class: 'CloneOption', depth: 1, noTags: true, reference: '', shallow: true, timeout: 120]],
 					submoduleCfg: [],userRemoteConfigs: [[credentialsId: 'a6280c9b-a503-48e3-9c38-face160c8be6', url:
-					 'http://saas1402fu.saas-secure.com/git/bcephal-configuration-repository.git']]])
+					 'http://saas1402fu.saas-secure.com/git/pascaldev-configuration-repository.git']]])
 				 }
 				 sh """ 
 				   echo " ${env.WORKSPACE}"
@@ -34,7 +34,7 @@ pipeline {
 				//checkout([$class: 'GitSCM', branches: [[name: '*/master']],
                 //doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', depth: 1, noTags: true, reference: '', shallow: true, timeout: 120]], 
 				//submoduleCfg: [],userRemoteConfigs: [[credentialsId: 'a6280c9b-a503-48e3-9c38-face160c8be6', url:
-                // 'http://saas1402fu.saas-secure.com/git/bcephal-configuration-service.git']]])
+                // 'http://saas1402fu.saas-secure.com/git/pascaldev-configuration-service.git']]])
 				 
 				 
 			 }
@@ -51,7 +51,7 @@ pipeline {
 					steps {
 					  script{
 						 try {
-							 dir('bcephal-configuration-service'){
+							 dir('pascaldev-configuration-service'){
 								
 							  sh 'chmod +x gradle' 
 							  sh './gradlew test '
@@ -95,25 +95,25 @@ pipeline {
 		//stage('Docker build image') {
           //steps {
 		 
-            //  dockerCmd "build -t becphal-configuration-service-docker-image:${env.BUILD_NUMBER} ."  
+            //  dockerCmd "build -t pascaldev-configuration-service-docker-image:${env.BUILD_NUMBER} ."
          // }
         // }
 		
 	   // stage('Docker tag image latest') {
 			 // steps {
-			// dockerCmd "tag becphal-configuration-service-docker-image:${env.BUILD_NUMBER}  becphal-configuration-service-docker-image:latest "
+			// dockerCmd "tag pascaldev-configuration-service-docker-image:${env.BUILD_NUMBER}  pascaldev-configuration-service-docker-image:latest "
 				   
 			 //  }
 		//}
 		//stage('Docker image ') {
 			//  steps {
-			 //  dockerCmd "tag becphal-configuration-service-docker-image localhost:5000/becphal-configuration-service-docker-image "
+			 //  dockerCmd "tag pascaldev-configuration-service-docker-image localhost:5000/pascaldev-configuration-service-docker-image "
 				   
 		  // }
         //}
 	   // stage('Docker push image latest') {
           // steps {
-          //   dockerCmd "push localhost:5000/becphal-configuration-kubernetes-service-docker-image"
+          //   dockerCmd "push localhost:5000/pascaldev-configuration-kubernetes-service-docker-image"
                
          // }
          // }
@@ -129,13 +129,13 @@ pipeline {
     }
     post {
 				always {
-				 dir('/var/lib/jenkins/workspace/bcephal-configuration-service/bcephal-configuration-service/build/test-results/test/'){
+				 dir('/var/lib/jenkins/workspace/pascaldev-configuration-service/pascaldev-configuration-service/build/test-results/test/'){
 					 junit  skipPublishingChecks: true, testResults: '**/TEST-*.xml'
 					  sh 'ls'
 				 }		 
 			   }
 			 failure {
-				mail to: 'jwambo@moriset.com', subject: 'B-Cephal Configuration microservice build failed', body: 'B-Cephal Configuration microservice build failed.\nPlease fix!'
+				mail to: 'pascalyakouyami@gmail.com', subject: 'Pascaldev Configuration microservice build failed', body: 'Pascaldev Configuration microservice build failed.\nPlease fix!'
 			}
 		}
 }
