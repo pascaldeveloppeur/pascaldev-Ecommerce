@@ -155,6 +155,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id){
 		 log.debug("Call of delete product : {}", id);
 			
@@ -169,6 +170,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/delete-all")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<?> deleteAlls(){
 		 log.debug("Call of delete all ");
 			try {

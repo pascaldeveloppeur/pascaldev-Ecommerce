@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 		try {
 			Optional<Category> category = categoryRepository.findById(id);
-			if (!category.isPresent()) {
+			if (category.isEmpty()) {
 				log.trace("this category does not exist");
 				return null;
 			}
@@ -79,8 +79,7 @@ public class CategoryServiceImpl implements CategoryService {
 				log.trace("this category already exist");
 				return category;
 			}
-			Category newCategory1 = categoryRepository.save(category);
-			return newCategory1;
+            return categoryRepository.save(category);
 
 		} catch (PascalDevException e) {
 			throw e;
@@ -100,9 +99,7 @@ public class CategoryServiceImpl implements CategoryService {
 		category.setName(categoryDto.getName());
 		category.setDescription(categoryDto.getDescription());
 
-		Category savedcategoryDto = save(category);
-
-		return savedcategoryDto;
+        return save(category);
 	}
 
 	@Override

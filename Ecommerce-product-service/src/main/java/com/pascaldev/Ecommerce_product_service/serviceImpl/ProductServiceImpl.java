@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 
 		try {
 			Optional<Product> product = productRepository.findById(id);
-			if (!product.isPresent()) {
+			if (product.isEmpty()) {
 				log.trace("this product does not exist");
 				return null;
 			}
@@ -108,9 +108,7 @@ public class ProductServiceImpl implements ProductService {
 	        product.setPrice(productDto.getPrice());
 	        product.setUpdatedAt(LocalDateTime.now());
 
-		ProductDto savedProductDto = save(ProductDto.fromProduct(product));
-
-		return savedProductDto;
+        return save(ProductDto.fromProduct(product));
 	}
 
 	@Override
@@ -141,7 +139,7 @@ public class ProductServiceImpl implements ProductService {
 
 		try {
 			Optional<Product> product = productRepository.findById(productId);
-			if (!product.isPresent()) {
+			if (product.isEmpty()) {
 				log.trace("this product does not exist");
 				return null;
 			}
@@ -175,7 +173,7 @@ public class ProductServiceImpl implements ProductService {
 
 		try {
 			Optional<Product> product = productRepository.findById(productId);
-			if (!product.isPresent()) {
+			if (product.isEmpty()) {
 				log.trace("this product does not exist");
 				return null;
 			}
