@@ -1,12 +1,18 @@
 package com.pascaldev.Ecommerce_utils_service.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.helpers.MessageFormatter;
 import org.springframework.http.HttpStatus;
 
 /**
  * @author Pascal Dev
  */
+
+
 @SuppressWarnings("serial")
+@Getter
+@Setter
 public class PascalDevException extends RuntimeException {
 
 	
@@ -34,18 +40,6 @@ public class PascalDevException extends RuntimeException {
 		super(message);
 		this.setStatusCode(statutCode);
 	}
-	
-	
 
-	
-
-	public int getStatusCode() {
-		return statusCode;
-	}
-
-	public void setStatusCode(int statusCode) {
-		this.statusCode = statusCode;
-		
-	}
 
 }
