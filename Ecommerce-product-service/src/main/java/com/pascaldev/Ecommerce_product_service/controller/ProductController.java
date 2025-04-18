@@ -89,7 +89,7 @@ public class ProductController {
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<?> getAllProducts(){
-		 log.debug("Call of get product  : {}");
+		 log.debug("Call of get product");
 			
 			try {
 				log.trace("Found : {}", "");
@@ -125,9 +125,10 @@ public class ProductController {
 			try {
 				ProductDto newProductDto = productServiceImpl.update(id, productDto);
 				return new ResponseEntity<>(newProductDto, HttpStatus.OK);
-			} catch (Exception e) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
+			} catch (PascalDevException e) {
+			log.debug(e.getMessage());
+			return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
+		}
 	}
 	
 	@PutMapping("/update/{id}/stock")
@@ -137,8 +138,9 @@ public class ProductController {
 			try {
 				Stock newProdStock = productServiceImpl.updateStockInProduct(id, productDto);
 				return new ResponseEntity<>(newProdStock, HttpStatus.OK);
-			} catch (Exception e) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			} catch (PascalDevException e) {
+				log.debug(e.getMessage());
+				return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
 			}
 	}
 	
@@ -149,8 +151,9 @@ public class ProductController {
 			try {
 				Price newProdPrice = productServiceImpl.updatePriceInProduct(id, productDto);
 				return new ResponseEntity<>(newProdPrice, HttpStatus.OK);
-			} catch (Exception e) {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			} catch (PascalDevException e) {
+				log.debug(e.getMessage());
+				return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
 			}
 	}
 	
@@ -176,8 +179,9 @@ public class ProductController {
 			try {
 				productServiceImpl.deleteAll();
 				return  ResponseEntity.status(HttpStatus.OK).body(true);
-			}catch (Exception e) {
-				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}catch (PascalDevException e) {
+				log.debug(e.getMessage());
+				return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
 			}
 	}
 

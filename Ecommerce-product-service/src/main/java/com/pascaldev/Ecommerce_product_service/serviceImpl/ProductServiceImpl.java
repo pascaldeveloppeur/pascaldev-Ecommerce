@@ -127,7 +127,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void deleteAll() {
-		log.trace("try to delete allProduct : {}");
+		log.trace("try to delete allProduct");
 
 		productRepository.deleteAll();
 
